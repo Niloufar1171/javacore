@@ -1,0 +1,18 @@
+ System.out.println(Arrays.toString(arr));
+   char [] chars= str.toCharArray();
+
+   List<List<Integer>> res = new ArrayList<>();
+   res.add(Arrays.asList(start,num-1));
+
+   Collection.sort(list, new ComparatorClass())
+
+   String[] nums1 = version1.split("\\.");
+   i2 = i < n2 ? Integer.parseInt(nums2[i]) : 0;
+
+   int product =   str.charAt(i) - '0';
+
+    List<String> l;
+   Integer.valueOf(l.get(0)));
+
+     Interval[] intervals
+     Arrays.sort(intervals,(a,b)->(a.start-b.start));
