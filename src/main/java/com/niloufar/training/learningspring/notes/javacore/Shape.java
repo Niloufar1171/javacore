@@ -6,11 +6,12 @@ public interface Shape {
 
     String privateName = null;
 
-// You will get error here!
+// You will get error here! cause you cannot have a public method with a body!
+//default meethod are fully implemented but we should not have a public access modifier for them!
 //    public default void color(){
 //        System.out.println("NO color");
 //    }
-   // protected String name ;
+   // protected String name ; --> violate the contract of publicly available for interfaces!
 
     default void color(){
         System.out.println("NO color");

@@ -2,10 +2,7 @@ package com.niloufar.training.learningspring.algorithms.matrix;
 
 import org.h2.value.ValueInt;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MatrixManipulation {
@@ -43,8 +40,8 @@ public class MatrixManipulation {
     }
     //*********************************************************************************************************************************************************************************************
     public static void TraverseSpiralOrder(int[][] matrix) {
-        int top = 0, bottom = matrix.length - 1;// range of rows
-        int left = 0, right = matrix[0].length - 1;// crange of cols
+        int top = 0, bottom = matrix.length - 1;// range of rows , how many rows we have?
+        int left = 0, right = matrix[0].length - 1;// rrange of cols, how many col we have?
 
         System.out.println("Spiral Order Traversal:");
         while (top <= bottom && left <= right) {
@@ -147,8 +144,161 @@ public class MatrixManipulation {
         }
         return null;
     }
-    //***Search for a word in Matrix ***********************************************************************************************************************************************************************************
 
+
+
+// print what direction is having
+ //   Search for a target in DFS, BFS and binary search if it is sorted
+    private static final int[][] DIRECTIONS = {
+        {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+    };
+    public static boolean bfsSearch(int[][] matrix, int target) {
+    if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+        return false;
+
+    int rows = matrix.length;
+    int cols = matrix[0].length;
+
+    // Start BFS from top-left (0,0), you can adapt for any start- we store the coordinates! the Positions not the values itself
+    Queue<int[]> queue = new LinkedList<>();
+    boolean[][] visited = new boolean[rows][cols];
+
+    queue.offer(new int[]{0, 0});
+    visited[0][0] = true;
+
+    while (!queue.isEmpty()) {
+        int[] cell = queue.poll();
+        int r = cell[0], c = cell[1];
+
+        // Check if target found
+        if (matrix[r][c] == target) {
+            return true;
+        }
+//    {-1, 0}, {1, 0}, {0, -1}, {0, 1} --> direction[0][0] = -1 direction[0][1] = 0 , dircetion[0] = [-1, 0]
+//        for (int i= 0 ; i < DIRECTIONS.length; i ++){
+//            int nr = r + DIRECTIONS[i][0];
+//            int nc = c + DIRECTIONS[i][1];
+//        }
+        // Explore neighbors
+        for (int[] dir : DIRECTIONS) {
+            int nr = r + dir[0];
+            int nc = c + dir[1];
+
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited[nr][nc]) {
+                visited[nr][nc] = true;
+                queue.offer(new int[]{nr, nc});
+            }
+        }
+    }
+
+    return false; // target not found
+}//--
+    public static boolean dfsSearchRecursion(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+            return false;
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+
+        // Start DFS from top-left cell (0,0)
+        return dfs(matrix, 0, 0, target, visited);
+    }
+
+    private static boolean dfs(int[][] matrix, int r, int c, int target, boolean[][] visited) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        // Check bounds and visited cells
+        if (r < 0 || r >= rows || c < 0 || c >= cols || visited[r][c]) {
+            return false;
+        }
+
+        // Mark this cell as visited
+        visited[r][c] = true;
+
+        // Check if this cell contains the target
+        if (matrix[r][c] == target) {
+            return true;
+        }
+
+        // Explore all 4 directions recursively
+        for (int[] dir : DIRECTIONS) {
+            int nr = r + dir[0];
+            int nc = c + dir[1];
+
+            if (dfs(matrix, nr, nc, target, visited)) {
+                return true;
+            }
+        }
+
+        return false; // target not found in this path
+    }
+    //DFS for searching an target using stack iterative approach
+    public static boolean dfsSearchIterative(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+            return false;
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+        Stack<int[]> stack = new Stack<>();
+
+        // Start DFS from top-left (0,0)
+        stack.push(new int[]{0, 0});
+        visited[0][0] = true;
+
+        while (!stack.isEmpty()) {
+            int[] cell = stack.pop();
+            int r = cell[0], c = cell[1];
+
+            // Check if target found
+            if (matrix[r][c] == target) {
+                return true;
+            }
+
+            // Explore 4 possible directions
+            for (int[] dir : DIRECTIONS) {
+                int nr = r + dir[0];
+                int nc = c + dir[1];
+
+                if (nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited[nr][nc]) {
+                    visited[nr][nc] = true;
+                    stack.push(new int[]{nr, nc});
+                }
+            }
+        }
+
+        return false; // Target not found
+    }
+//--------------------Same question using Binary search since it is sorted!--------------------------
+    public static boolean BinarySearchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0)
+            return false;
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        int left = 0;
+        int right = rows * cols - 1;  // treat matrix as a flat array
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int midValue = matrix[mid / cols][mid % cols]; // map 1D index to 2D coordinates
+            System.out.println("the first value for mid/cols :" + mid/ cols + ", the cols is" + (mid % cols)) ;
+            if (midValue == target) {
+                return true; // target found
+            } else if (midValue < target) {
+                left = mid + 1; // search right half
+            } else {
+                right = mid - 1; // search left half
+            }
+        }
+
+        return false; // not found
+    }
+
+    //***Search for a word in Matrix ***********************************************************************************************************************************************************************************
     private static boolean dfs(char[][] board, String word, int idx, int r, int c) {
         // All characters matched
         if (idx == word.length()) return true;
@@ -275,5 +425,19 @@ public class MatrixManipulation {
         for (int num : luckyNumbers) {
             System.out.println(num); // Output: 15
         }
+
+        //---BFS search in matrix
+        int[][] matrix2 = {
+                {1, 2, 3 , 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12}
+        };
+
+        int target = 9;
+        boolean found = bfsSearch(matrix, target);
+        System.out.println("Target " + target + " found: " + found);
+
+        found = BinarySearchMatrix(matrix2, target);
+        System.out.println("Target " + target + " found: " + found);
     }
 }

@@ -5,7 +5,7 @@ package com.niloufar.training.learningspring.notes.javacore;
 //to make 
 public abstract class Animal {
     //public abstract String sound; // ❌ Compilation error
-   protected  String sound;// <---using protected
+   protected  String sound;// <---using protected Only visible to the subclasses!
      public String name ;
 
     public String getName() {

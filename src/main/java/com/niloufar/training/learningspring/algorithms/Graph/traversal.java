@@ -33,6 +33,7 @@ public class traversal {
             int node =q.poll();
             System.out.print("Node [ " + node + " ] , ");
             int eachArrysize = graph.get(node).size() ;
+
             for(int i = 0 ;i < eachArrysize; i ++) {
                 int neighbor = graph.get(node).get(i);
                 if(!seen[neighbor]) {

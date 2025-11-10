@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
+/*
+    1- valid
+    2- travers in order
+    3- pre order
+    4- post order
+    5- deleat node
+    6- print right view
+    7- is sementic
+    8-is mirrored
+    */
 public class Tree {
 
    static int maxLevel = -1;
@@ -24,13 +33,13 @@ public class Tree {
         if(root == null) return true;
         int left = root.left.val;
         int right = root.right.val;
-        if ( (root.left.val != 0 && root.val <= root.left.val) || (root.right.val != 0 && root.val >= root.right.val))
+        if ( (root.left.val != 0 && root.val <= root.left.val) || (root.right.val != 0 && root.val >= root.right.val))//-- left node < root node < right node
             return false;
         else
             return isValidBST(root.left) && isValidBST(root.right);
 
     }
-//-------------------------------------------------------------------------------------------------------------------------------------------
+//----------------LEFT ROOT RIGHT---------------------------------------------------------------------------------------------------------------------------
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         if(root ==null) return list;
@@ -94,13 +103,11 @@ public class Tree {
 
                 for (int i = 0; i < size; i++) {
                     TreeNode node = queue.poll();
-
                     // Print the last node of the current level
                     if (i == size - 1) {
                         System.out.print(node.val + " ");
                     }
-//---------------------
-                    // Add left and right children
+//---------------// Add left and right children
                     if (node.left != null) queue.add(node.left);
                     if (node.right != null) queue.add(node.right);
                 }
