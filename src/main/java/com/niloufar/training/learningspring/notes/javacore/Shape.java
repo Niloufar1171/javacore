@@ -17,6 +17,6 @@ public interface Shape {
         System.out.println("NO color");
     }
     default void shapePrinter(){
-        System.out.println("Shape does not have any concirt line");
+        System.out.println("Shape does not have any concrete line");
     }
 }

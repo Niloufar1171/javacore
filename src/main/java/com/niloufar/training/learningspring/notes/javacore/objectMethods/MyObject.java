@@ -16,6 +16,14 @@ public class MyObject implements Cloneable {// we are saying this class is allow
         return name;
     }
 
+    public MyObject(String name) {
+        this.name = name;
+    }
+
+    public MyObject(int value) {
+        this.value = value;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -30,16 +38,13 @@ public class MyObject implements Cloneable {// we are saying this class is allow
 
     // Override clone() to make a copy field by filed
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-//0- make sure you recieve an OBJECT type not an object of the class you defined as an arg in the equels method.
-// 1- check if it's it has the same reference like it's one object but 2 differert refrence it is pointing at it.
+    //0- make sure you recieve an OBJECT type not an object of the class you defined as an arg in the equels method.
+    //1- check if it has the same reference as our own object like it's one object but 2 differert refrence it is pointing at it.
     //2 - check if it is an instance of the class then
     //3- then if the object is an instance of my object class then check the values of the class field by field to see if ot is actually the same.
-    // Override equals() to compare field values
-//
-
     // Override equals() to compare field values
     @Override
     public boolean equals(Object obj) {//<------type is Object

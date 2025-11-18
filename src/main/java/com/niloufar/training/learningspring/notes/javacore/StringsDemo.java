@@ -18,8 +18,8 @@ public class StringsDemo {
         System.out.println(str1.equals(str2));
         System.out.println(str1 == str2);
 //--------------------------------------------
-        str2 = "hello";//changing the value the hashcode would be still the same but the reference to it wouldbe differeent so == is false !
-        System.out.println(" String with no new  word hashcode is :" + str2.hashCode());//now it ha different hashcode!
+        str2 = "hello";//changing the value the hashcode would be still the same but the reference to it would be different so == is false !
+        System.out.println(" String with no new word hashcode is :" + str2.hashCode());//now it has different hashcode!
         System.out.println(str1.equals(str2));
         System.out.println(str1 == str2);
     }
