@@ -41,15 +41,15 @@ public class MyObject implements Cloneable {// we are saying this class is allow
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-    //0- make sure you recieve an OBJECT type not an object of the class you defined as an arg in the equels method.
+    //0- make sure you receive an OBJECT type not an object of the class you defined as an arg in the equals method.
     //1- check if it has the same reference as our own object like it's one object but 2 differert refrence it is pointing at it.
     //2 - check if it is an instance of the class then
     //3- then if the object is an instance of my object class then check the values of the class field by field to see if ot is actually the same.
     // Override equals() to compare field values
     @Override
     public boolean equals(Object obj) {//<------type is Object
-        if (this == obj) return true;
-        if (!(obj instanceof MyObject)) return false;
+        if (this == obj) return true;// the reference ?
+        if (!(obj instanceof MyObject)) return false; // the type?
         MyObject other = (MyObject) obj;
         return this.value == other.value && this.name.equals(other.name);
     }
